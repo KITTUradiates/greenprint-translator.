@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#10171f">
+<meta name="description" content="A code-preserving Spanish-to-English translator for the Minecraft Bedrock GreenPrint addon.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icon-192.png">
+<title>GreenPrint Translator</title>
+<style>
+:root{color-scheme:dark;--bg:#0d141b;--panel:#151f29;--panel2:#1a2733;--line:#2a3a48;--text:#edf3f8;--muted:#9babb9;--accent:#70d8a0;--accent2:#a5f0c4;--warn:#ffd17e;--bad:#ff8d8d;--blue:#8dc8ff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(1100px 500px at 15% -15%,#203a36 0%,transparent 60%),var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+main{max-width:940px;margin:0 auto;padding:20px 14px 48px}.top{display:flex;align-items:center;gap:13px;margin-bottom:18px}.logo{width:46px;height:46px;border-radius:14px;background:linear-gradient(135deg,#7ce2a5,#338a6a);display:grid;place-items:center;color:#092116;font-size:25px;font-weight:900}.top h1{font-size:23px;line-height:1.15;margin:0}.top p{margin:4px 0 0;color:var(--muted);font-size:13px}
+.card{background:linear-gradient(180deg,#17232e,#131d26);border:1px solid var(--line);border-radius:17px;padding:16px;margin:13px 0}.card h2{font-size:16px;margin:0 0 9px}.sub{color:var(--muted);font-size:13px;margin:4px 0 12px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.field{display:flex;flex-direction:column;gap:6px}.field label{font-size:13px;color:#c2d0dc;font-weight:650}.field input,.field select{width:100%;min-height:45px;background:#0e171f;border:1px solid #354857;border-radius:11px;color:var(--text);padding:10px 12px;font:inherit}.field input:focus,.field select:focus{outline:2px solid #70d8a077;border-color:var(--accent)}
+.filebox{display:block;border:1.5px dashed #496171;border-radius:14px;padding:19px 13px;text-align:center;background:#0e1821;cursor:pointer}.filebox input{display:none}.filebox strong{display:block;font-size:15px}.filebox span{display:block;color:var(--muted);font-size:12px;margin-top:5px}.fileicon{font-size:28px;margin-bottom:4px}.filename{font-size:13px;color:var(--accent2);margin-top:8px;overflow-wrap:anywhere}
+button,.btn{border:0;border-radius:11px;min-height:45px;padding:10px 14px;font:700 14px system-ui;cursor:pointer}.primary{background:linear-gradient(135deg,#79e5a8,#46ba82);color:#092318;width:100%}.secondary{background:#223341;color:#e6f1f9;border:1px solid #3d5667}.ghost{background:transparent;color:var(--blue);border:1px solid #36516a}.buttons{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.buttons button{flex:1}.mini{min-height:38px;padding:8px 10px;font-size:12px}
+.note{border-left:3px solid var(--blue);background:#152532;padding:10px 12px;border-radius:0 9px 9px 0;color:#c4d6e6;font-size:12px;margin-top:10px}.warn{border-left-color:var(--warn);background:#2a2418;color:#f3dcae}.danger{border-left-color:var(--bad);background:#2a1c20;color:#ffd0d0}.good{border-left-color:var(--accent);background:#15291f;color:#c8f2d9}
+.progress{height:8px;background:#0b131a;border-radius:99px;overflow:hidden;border:1px solid #2b3e4b;margin:11px 0}.bar{height:100%;width:0;background:linear-gradient(90deg,#48bd83,#a1efc1);transition:width .2s}.status{font-size:13px;color:#c7d5e0;min-height:20px;overflow-wrap:anywhere}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:11px}.stat{background:#0f1922;border:1px solid #283a47;border-radius:11px;padding:10px;text-align:center;min-width:0}.stat b{font-size:19px;display:block;color:var(--accent2);overflow-wrap:anywhere}.stat span{font-size:11px;color:var(--muted)}
+details{border-top:1px solid #2c3c49;margin-top:12px;padding-top:10px}summary{cursor:pointer;color:#cde2f1;font-weight:650;font-size:13px}.review{max-height:380px;overflow:auto;margin-top:10px}.reviewrow{padding:9px 0;border-bottom:1px solid #293945;display:grid;grid-template-columns:1fr 1fr;gap:10px}.reviewrow .src{color:#f4c98a}.reviewrow .dst{color:#a9e7bd}.reviewrow small{display:block;color:var(--muted);font-size:10px;margin-bottom:3px}.foot{color:#748695;font-size:11px;text-align:center;margin:22px 0}.hidden{display:none!important}.step{display:flex;gap:10px;align-items:flex-start;margin:8px 0;color:#c2cfda;font-size:13px}.step i{font-style:normal;flex:0 0 23px;height:23px;border-radius:50%;background:#253b35;color:#a8edc4;display:grid;place-items:center;font-size:12px;font-weight:800}.checklist{margin:8px 0;padding-left:20px;color:#c8d7e2;font-size:13px}.checklist li{margin:4px 0}a{color:#9bd0ff}
+@media(max-width:620px){main{padding:15px 11px 36px}.grid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.card{padding:13px}.top h1{font-size:21px}.reviewrow{grid-template-columns:1fr}.buttons button{flex-basis:100%}}
+</style>
+</head>
+<body>
+<main>
+<header class="top"><div class="logo">G</div><div><h1>GreenPrint Translator</h1><p>Spanish → English · Minecraft Bedrock · Android-friendly · v3.1</p></div></header>
+
+<section class="card">
+  <h2>1. Online translation engine</h2>
+  <p class="sub">The verified GreenPrint translation memory is bundled. Known text is translated locally without an API call; Gemini is used only for new or changed player-facing strings.</p>
+  <div class="grid">
+    <div class="field"><label for="apiKey">Gemini API key</label><input id="apiKey" type="password" autocomplete="off" placeholder="Paste your Google AI Studio key"></div>
+    <div class="field"><label for="model">Translation model</label><select id="model"><option value="gemini-3.8-flash">Gemini 3.8 Flash · Recommended</option><option value="gemini-3.5-flash-lite">Gemini 3.5 Flash-Lite · Lower cost</option></select></div>
+  </div>
+  <div class="note warn">Personal-use setup: the key is held in this page's memory and is not saved to the website or addon. A browser-based app cannot keep a client-side API key secret from someone who can inspect the page or its requests. Do not share this page while your key is entered. For a public multi-user website, use a private backend proxy.</div>
+  <p style="margin:10px 0 0;font-size:12px"><a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noreferrer">Create a Gemini API key in Google AI Studio ↗</a></p>
+</section>
+
+<section class="card">
+  <h2>2. Select your GreenPrint addon</h2>
+  <p class="sub">Choose the Spanish GreenPrint `.mcaddon`, `.mcpack` or ZIP from your Android Files app.</p>
+  <label class="filebox" for="addonFile"><div class="fileicon">📦</div><strong>Tap to select addon</strong><span>Supports .mcaddon · .mcpack · .zip</span><input id="addonFile" type="file" accept=".mcaddon,.mcpack,.zip,application/zip"></label>
+  <div class="filename" id="fileName">No file selected</div>
+  <div class="note">GreenPrint-specific rules: translates player-facing UI strings in JavaScript, `en_US.lang`, manifests and supported entity/item/block JSON. It translates Spanish display names in `projects.js` but skips container/decorations/water-layer data, `.mcstructure` files, textures, models and technical identifiers.</div>
+  <div class="note">Both pack versions are automatically increased on every export, even when a new variant only changes its structure or material data. Your first export from the original v1.8.7 source will be v1.8.9 because your working v1.8.8 addon is already installed.</div>
+  <div class="buttons"><button class="primary" id="startBtn" disabled>Scan, translate and verify</button></div>
+</section>
+
+<section class="card hidden" id="progressCard">
+  <h2>3. Translation and verification</h2>
+  <div class="status" id="status">Preparing archive…</div>
+  <div class="progress"><div class="bar" id="bar"></div></div>
+  <div class="stats">
+    <div class="stat"><b id="filesStat">0</b><span>Text files scanned</span></div>
+    <div class="stat"><b id="foundStat">0</b><span>Candidate strings</span></div>
+    <div class="stat"><b id="cachedStat">0</b><span>Reused translations</span></div>
+    <div class="stat"><b id="apiStat">0</b><span>Sent to Gemini</span></div>
+  </div>
+  <div id="resultNote" class="note" style="margin-top:12px">The download button appears only after validation succeeds.</div>
+  <details id="reviewDetails" class="hidden"><summary>Review new translations</summary><div class="review" id="reviewList"></div></details>
+  <details id="validationDetails" class="hidden"><summary>Validation report</summary><ul id="validationList" class="checklist"></ul></details>
+  <div class="buttons hidden" id="downloadArea"><button class="primary" id="downloadBtn">Download English GreenPrint addon</button></div>
+</section>
+
+<section class="card">
+  <h2>4. GreenPrint translation memory</h2>
+  <p class="sub">Includes translations extracted from your working GreenPrint 1.8.8 addon, plus anything translated on this device. Future GreenPrint variants reuse matching UI translations automatically.</p>
+  <div class="grid">
+    <div class="stat"><b id="memoryCount">0</b><span>Available translations</span></div>
+    <div class="stat"><b id="seedStatus">Loading…</b><span>Built-in GreenPrint glossary</span></div>
+  </div>
+  <div class="buttons"><button class="secondary mini" id="exportMemory">Export memory backup</button><button class="secondary mini" id="importMemory">Import memory backup</button><button class="ghost mini" id="clearMemory">Clear saved additions</button><input type="file" id="memoryFile" accept="application/json,.json" class="hidden"></div>
+  <p class="sub" style="margin-top:9px">Saved additions stay in this browser on this phone. Export a backup before clearing browser data or changing devices. Built-in translations remain bundled with the website.</p>
+</section>
+
+<section class="card">
+  <h2>How to use it on Android</h2>
+  <div class="step"><i>1</i><div>Upload all files from the website ZIP to one GitHub repository and enable GitHub Pages. Open the HTTPS Pages link in Chrome. The included README has exact Android setup steps.</div></div>
+  <div class="step"><i>2</i><div>Paste your Gemini API key if the selected variant contains text not already in the built-in memory. Gemini 3.8 Flash is the recommended model.</div></div>
+  <div class="step"><i>3</i><div>Tap the addon selector and choose the latest Spanish GreenPrint `.mcaddon`.</div></div>
+  <div class="step"><i>4</i><div>Tap <b>Scan, translate and verify</b>. Known text is reused; only new/changed text is sent to Gemini.</div></div>
+  <div class="step"><i>5</i><div>Review the translation list and validation report, then download and import the new `.mcaddon` into Minecraft.</div></div>
+  <div class="note warn">Test each new build in a disposable world first. Static validation can catch syntax and archive damage, but it cannot prove that every Minecraft interaction works in-game.</div>
+</section>
+<footer class="foot">GreenPrint Translator · Personal-use tool · Code and project data are protected by syntax and archive checks.</footer>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/acorn@8.19.0/dist/acorn.js"></script>
+<script>
+(()=>{
+'use strict';
+const $=id=>document.getElementById(id);
+const DB_KEY='greenprint_translator_memory_v2',LEGACY_DB_KEY='greenprint_translator_memory_v1',VERSION_KEY='greenprint_translator_version_history_v2';
+let memory=loadMemory(),versionHistory=loadVersionHistory(),seedMemory={},seedReady=false,selectedFile=null,outputBlob=null,outputName='GreenPrint_English.mcaddon',outputVersion=null,pendingVersionRecord=null;
+const changedPaths=new Set(),validationMessages=[];
+const stats={files:0,found:0,cached:0,api:0,translated:0,appliedCached:0,unchanged:0,errors:[],filterPatched:false,versionBumped:false};
+const glossary=[
+ ['Plano maestro','Master Blueprint'],['Girar plano','Rotate Blueprint'],['Nivel de capas','Layer Controller'],['Observador bloqueado','Locked Observer'],['Bloques pendientes','Missing Blocks'],['Inventario de obra','Material List'],['Pistón bloqueado','Locked Piston'],['Pistón pegajoso bloqueado','Locked Sticky Piston'],['Tierra protegida','Protected Dirt'],['Vista holográfica','Hologram View'],['Cámara normal','Normal Camera'],['Colocar vagoneta','Place Minecart'],['cámara libre','free camera'],['holograma','hologram'],['proyecto','project'],['lista de materiales','material list'],['caña de azúcar','sugar cane'],['marrón','brown'],['azul claro','light blue'],['verde lima','lime green'],['gris claro','light gray'],['estante','shelf']
+];
+const glossaryMap=new Map(glossary.map(([a,b])=>[norm(a),b]));
+const oneWordSpanish=new Set(('aceptar cancelar atras atrás volver siguiente anterior guardar salir confirmar completar eliminar crear editar materiales proyecto cámara normal activar desactivar colocar cargar seleccionar elegir aplicar borrar continuar finalizar terminado pendiente pendientes correcto incorrecto sí no ayuda configuración velocidad rotación capas capa agua líquidos fluido vagoneta blanco blanca blancos blancas naranja amarillo amarilla magenta rosa gris grises cian morado morada azul verde rojo roja negro negra abajo arriba centro norte sur este oeste todas todos vagonetas multianclaje bloques cancelado confirmado desconocido desconocida cubo cubos observador palanca marco cristal piedra tierra roca cofre tolva cemento estante estantes estantería bombilla oxidado expuesto degradado').split(' '));
+const skippedProjectFiles=/(?:^|\/)(?:container_contents|decorations|water_layers)\.js$/i;
+const noTranslatePaths=/(?:^|\/)(?:projects|container_contents|decorations|water_layers)\.(?:js|json)$/i;
+
+function loadMemory(){try{return JSON.parse(localStorage.getItem(DB_KEY)||localStorage.getItem(LEGACY_DB_KEY)||'{}')}catch{return {}}}
+function loadVersionHistory(){try{return JSON.parse(localStorage.getItem(VERSION_KEY)||'{}')}catch{return {}}}
+function saveVersionHistory(){try{localStorage.setItem(VERSION_KEY,JSON.stringify(versionHistory))}catch{setStatus('Version history could not be saved. Export a translation-memory backup after downloading.')}}
+function saveMemory(){try{localStorage.setItem(DB_KEY,JSON.stringify(memory));updateStats()}catch{setStatus('The browser could not save the translation memory. Export a backup after this run.')}}
+function norm(s){return String(s??'').normalize('NFC').trim().toLocaleLowerCase('es')}
+function fnv1a(text){let h=0x811c9dc5;for(let i=0;i<text.length;i++){h^=text.charCodeAt(i);h=Math.imul(h,0x01000193)}return (h>>>0).toString(16).padStart(8,'0')}
+function normalizeContext(s){return String(s??'').replace(/\s+/g,' ').trim().slice(0,360).toLocaleLowerCase('es')}
+function memoryKey(job){const base=job.kind+'|'+norm(job.text);const useContext=job.kind==='js-template'||(job.kind==='js'&&String(job.text).trim().length<=32);return useContext?base+'|ctx:'+fnv1a(normalizeContext(job.context)):base}
+function memoryCount(){return new Set([...Object.keys(seedMemory),...Object.keys(memory)]).size}
+async function loadSeedMemory(){try{const r=await fetch('./greenprint_seed_memory.json?v=3',{cache:'no-store'});if(!r.ok)throw new Error('Seed file HTTP '+r.status);const data=await r.json();if(!data.memory||typeof data.memory!=='object'||Object.keys(data.memory).length<400)throw new Error('The bundled GreenPrint translation memory is incomplete.');seedMemory=data.memory;if(data.versions&&typeof data.versions==='object'){for(const [k,v] of Object.entries(data.versions)){if(!Array.isArray(versionHistory[k])||compareVersion(versionHistory[k],v)<0)versionHistory[k]=v}saveVersionHistory()}$('seedStatus').textContent='Ready · '+Object.keys(seedMemory).length;}catch(e){seedMemory={};$('seedStatus').textContent='Unavailable';console.warn('Bundled GreenPrint memory could not be loaded:',e)}finally{seedReady=true;updateStats()}}
+const seedPromise=loadSeedMemory();
+function getMemory(job){return memory[memoryKey(job)]??seedMemory[memoryKey(job)]??(job.kind==='js'||job.kind==='lang'||job.kind==='json'?glossaryMap.get(norm(job.text)):undefined)}
+function setStatus(s){$('status').textContent=s}
+function setProgress(p){$('bar').style.width=Math.max(0,Math.min(100,p))+'%'}
+function updateStats(){for(const [k,id] of [['files','filesStat'],['found','foundStat'],['cached','cachedStat'],['api','apiStat']])$(id).textContent=stats[k];$('memoryCount').textContent=memoryCount()}
+function isTextCandidate(s,force=false,context=''){
+ const t=String(s??'').trim();if(!t)return false;
+ const visible=t.replace(/§[0-9a-fk-or]/gi,'').trim();if(!visible)return false;
+ if(/^ZXQPH\d+QXZ$/i.test(visible))return false;
+ if(/^(?:minecraft|adi|adi_projects|greenprint):[a-z0-9_./-]+$/i.test(visible))return false;
+ if(/^(?:minecraft|adi|adi_projects|greenprint):$/i.test(visible))return false;
+ if(/^(?:[A-Za-z_][A-Za-z0-9_]*_+|g:|s:|double:)$/i.test(visible))return false;
+ if(/^(?:https?:\/\/|www\.)/i.test(visible)||/\.(?:png|jpg|jpeg|json|js|mcstructure|mcpack|mcaddon)$/i.test(visible))return false;
+ if(/[{}=<>]/.test(visible)||/\b(?:query|math|variable|v|q)\.[A-Za-z_]/.test(visible))return false;
+ if(/^(?:hud|camera|tickingarea|structure|scoreboard|execute|fill|setblock|playsound|say|tellraw|summon|tp|kill)\s/i.test(visible))return false;
+ if(/(?:@s|@p|@a|~[~0-9.-]*|\b(?:tickingarea|structure)\s+(?:add|remove|load|save)\b)/i.test(visible))return false;
+ if(/\b(?:camera @|structure load|function |return |const |let |var )/i.test(visible))return false;
+ if(visible.includes('/')&&!visible.includes(' ')&&!force)return false;
+ if(visible.length===1){return visible.toUpperCase()==='O'&&/\bneighbors\b/.test(context)}
+ if(force)return true;
+ const words=visible.toLocaleLowerCase('es').replace(/[¡!¿?.,:;()\[\]§0-9×]/g,'').trim().split(/\s+/).filter(Boolean);
+ if(words.length>=2)return true;
+ if(/[áéíóúñü¿¡]/i.test(visible))return true;
+ return words.length===1&&oneWordSpanish.has(words[0]);
+}
+function contextAround(src,start,end){return src.slice(Math.max(0,start-130),Math.min(src.length,end+130)).replace(/\s+/g,' ').trim().slice(0,360)}
+function isPropertyKey(node,parent){return !!(parent&&((parent.type==='Property'&&parent.key===node&&!parent.computed)||(parent.type==='MemberExpression'&&parent.property===node&&!parent.computed)||((parent.type==='ImportDeclaration'||parent.type==='ExportNamedDeclaration'||parent.type==='ExportAllDeclaration')&&parent.source===node)))}
+function escapeJSString(value,quote){let s=String(value).replace(/\\/g,'\\\\').replace(/\r/g,'\\r').replace(/\n/g,'\\n').replace(/\t/g,'\\t');const q=quote==='\''?"'":'"';s=s.replace(new RegExp(q==='"'?'"':"'",'g'),'\\'+q);return q+s+q}
+function escapeTemplate(value){return String(value).replace(/\\/g,'\\\\').replace(/`/g,'\\`').replace(/\$\{/g,'\\${').replace(/\r/g,'\\r').replace(/\n/g,'\\n')}
+function walk(node,parent,prop,fn){if(!node||typeof node!=='object')return;if(Array.isArray(node)){for(let i=0;i<node.length;i++)walk(node[i],parent,i,fn);return}if(typeof node.type==='string')fn(node,parent,prop);for(const k of Object.keys(node)){if(['start','end','loc'].includes(k))continue;const v=node[k];if(v&&typeof v==='object')walk(v,node,k,fn)}}
+function parseJS(source,path){
+ const ast=acorn.parse(source,{ecmaVersion:'latest',sourceType:'module',allowHashBang:true,allowAwaitOutsideFunction:true});const jobs=[];
+ walk(ast,null,null,(node,parent)=>{
+  if(node.type==='Literal'&&typeof node.value==='string'&&!isPropertyKey(node,parent)){
+   const ctx=contextAround(source,node.start,node.end);if(isTextCandidate(node.value,false,ctx)){const raw=source.slice(node.start,node.end),quote=raw[0];jobs.push({kind:'js',text:node.value,path,context:ctx,start:node.start,end:node.end,encode:t=>escapeJSString(t,quote==='\''?'\'':'"')})}
+  } else if(node.type==='TemplateElement'&&node.value&&typeof node.value.cooked==='string'){
+   const ctx=contextAround(source,node.start,node.end);const full=parent&&parent.type==='TemplateLiteral'?parent.quasis.map(q=>q.value.cooked||'').join(' DYNAMIC_VALUE '):node.value.cooked;
+   if(isTextCandidate(full,false,ctx)&&isTextCandidate(node.value.cooked,true,ctx)){jobs.push({kind:'js-template',text:node.value.cooked,path,context:ctx,start:node.start,end:node.end,encode:escapeTemplate})}
+  }
+ });return jobs;
+}
+function jsonKey(node){if(!node)return '';if(node.type==='Identifier')return node.name;if(node.type==='Literal')return String(node.value);return ''}
+function parseJSONJobs(source,path){
+ const wrapped='('+source+')';const ast=acorn.parse(wrapped,{ecmaVersion:'latest'});const jobs=[];const manifest=/manifest\.json$/i.test(path);
+ const visibleKeys=new Set(['interact_text','display_name','title','text','label','button','tooltip','prompt','description','subtitle']);
+ function addLiteral(v,parts){if(v.type!=='Literal'||typeof v.value!=='string')return;const last=String(parts[parts.length-1]||'').split(':').pop().toLowerCase();const manifestField=manifest&&(parts.join('/').toLowerCase()==='header/name'||parts.join('/').toLowerCase()==='header/description');if(manifestField||(visibleKeys.has(last)&&isTextCandidate(v.value,last==='interact_text'))){const start=v.start-1,end=v.end-1,raw=source.slice(start,end),q=raw[0];jobs.push({kind:'json',text:v.value,path,context:parts.join(' / '),start,end,encode:t=>escapeJSString(t,q==='\''?'\'':'"')})}}
+ function visit(node,parts=[]){if(!node)return;if(node.type==='ObjectExpression'){for(const p of node.properties){if(p.type!=='Property')continue;const k=jsonKey(p.key),next=parts.concat(k);const v=p.value;if(v.type==='Literal'&&typeof v.value==='string')addLiteral(v,next);else visit(v,next)}}else if(node.type==='ArrayExpression'){for(const e of node.elements){if(!e)continue;if(e.type==='Literal'&&typeof e.value==='string')addLiteral(e,parts);else visit(e,parts)}}}
+ const root=ast.body[0]?.expression;if(root)visit(root,[]);return jobs;
+}
+function parseLangJobs(source,path){const jobs=[];let offset=0;const lines=source.match(/.*(?:\r\n|\n|$)/g)||[];for(const line of lines){if(!line)continue;const noNL=line.replace(/(?:\r\n|\n)$/,'');const eq=noNL.indexOf('=');if(eq>0&&!/^\s*[#!]/.test(noNL)){const key=noNL.slice(0,eq).trim(),value=noNL.slice(eq+1);if(key!=='pack.name'&&isTextCandidate(value,true)){jobs.push({kind:'lang',text:value,path,context:'Minecraft language key: '+key,start:offset+eq+1,end:offset+noNL.length,encode:t=>t})}}offset+=line.length}return jobs}
+function shouldScanJson(path){if(noTranslatePaths.test(path)||/(?:^|\/)structures\//i.test(path))return false;return /manifest\.json$/i.test(path)||/(?:^|\/)(?:entities|items|blocks)\/.*\.json$/i.test(path)}
+function collectCandidates(source,path){const ext=path.split('.').pop().toLowerCase();if(ext==='js'){if(skippedProjectFiles.test(path))return [];return parseJS(source,path)}if(ext==='json'){if(!shouldScanJson(path))return [];return parseJSONJobs(source,path)}if(ext==='lang'&&/\/en_US\.lang$/i.test('/'+path))return parseLangJobs(source,path);return []}
+function protectTokens(text){const tokens=[];const re=/(%(?:\d+\$)?[sdif]|%\d+|%s|%\d*\.\d+[fdi]|§[0-9a-fk-or]|\r\n|\r|\n|\\[nrt]|\$\{[^}]+\}|\{\{?(?:[A-Za-z_]|\d)[\w.-]*\}?\}|\b(?:minecraft|adi|adi_projects|greenprint):[a-z0-9_./-]+\b|@[pasr](?:\[[^\]]+\])?)/gi;const masked=String(text).replace(re,m=>{const tag='ZXQPH'+tokens.length+'QXZ';tokens.push([tag,m]);return tag});return {masked,tokens}}
+function countOccurrences(s,sub){let n=0,p=0;while((p=s.indexOf(sub,p))!==-1){n++;p+=sub.length}return n}
+function restoreTokens(text,tokens){let out=String(text);for(const [tag,value] of tokens){if(countOccurrences(out,tag)!==1)throw new Error('A protected code/placeholder token was lost or duplicated: '+value);out=out.split(tag).join(value)}if(/ZXQPH\d+QXZ/i.test(out))throw new Error('The translation returned an unknown protected-token marker.');return out}
+function callContextPrompt(){return 'Translate player-facing Spanish text into natural English for Minecraft Bedrock. Use the provided code context only to understand the message, never rewrite code. Keep technical identifiers, Minecraft IDs, commands, coordinates, function names, variable names and non-player-facing values unchanged. Do not translate already-English text. Preserve every ZXQPH...QXZ marker exactly once and in the correct place. Preserve formatting and punctuation. Use consistent terms: Plano maestro=Master Blueprint; Girar plano=Rotate Blueprint; Nivel de capas=Layer Controller; Inventario de obra=Material List; Bloques pendientes=Missing Blocks; Vista holográfica=Hologram View; cámara libre=free camera; holograma=hologram; proyecto=project; vagoneta=minecart. Use standard English Minecraft item/block names. Return only the required JSON.'}
+async function callGemini(items,apiKey,model){
+ if(!apiKey)throw new Error('This GreenPrint variant contains new text not in the saved translation memory. Enter your Gemini API key to translate those new strings.');
+ const requestItems=items.map((it,i)=>{const p=protectTokens(it.text);return {id:i,kind:it.kind,text:p.masked,source_file:it.path,code_context:it.context,protected:p}});
+ const publicItems=requestItems.map(({id,kind,text,source_file,code_context})=>({id,kind,text,source_file,code_context}));
+ const body={systemInstruction:{parts:[{text:callContextPrompt()}]},contents:[{role:'user',parts:[{text:'For every item return exactly one object with the same id. Set status="translate" only when the string is player-facing Spanish or another clearly untranslated human-language string. Otherwise set status="keep" and return the input unchanged. Items:\n'+JSON.stringify(publicItems)}]}],generationConfig:{maxOutputTokens:8192,responseMimeType:'application/json',responseSchema:{type:'ARRAY',items:{type:'OBJECT',properties:{id:{type:'INTEGER'},status:{type:'STRING',enum:['translate','keep']},translation:{type:'STRING'}},required:['id','status','translation']}}}};
+ const url='https://generativelanguage.googleapis.com/v1beta/models/'+encodeURIComponent(model)+':generateContent';let lastError;
+ for(let attempt=0;attempt<3;attempt++)try{
+  const res=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':apiKey},body:JSON.stringify(body)});let data;try{data=await res.json()}catch{throw new Error('Gemini returned a non-JSON HTTP response.')};if(!res.ok)throw new Error(data?.error?.message||('Gemini API error '+res.status));
+  const raw=data?.candidates?.[0]?.content?.parts?.map(p=>p.text||'').join('')||'';const cleaned=raw.replace(/^```(?:json)?\s*/i,'').replace(/\s*```$/,'').trim();const result=JSON.parse(cleaned);if(!Array.isArray(result)||result.length!==items.length)throw new Error('Gemini returned an incomplete translation batch.');
+  const map=new Map();for(const r of result){const id=Number(r.id);if(!Number.isInteger(id)||id<0||id>=items.length||map.has(id)||!['translate','keep'].includes(r.status)||typeof r.translation!=='string')throw new Error('Gemini returned an invalid or duplicate result item.');map.set(id,r)}
+  return requestItems.map((it,i)=>{const r=map.get(i);if(!r)throw new Error('Gemini omitted translation item '+i);const restored=restoreTokens(r.translation,it.protected.tokens);return {item:items[i],status:r.status,translation:r.status==='keep'?items[i].text:restored}});
+ }catch(e){lastError=e;if(attempt<2)await new Promise(r=>setTimeout(r,1500*(attempt+1)))}
+ throw lastError||new Error('Translation request failed');
+}
+function applyEdits(source,edits){edits.sort((a,b)=>b.start-a.start);let out=source,last=Infinity;for(const e of edits){if(e.start<0||e.end>source.length||e.start>e.end||e.end>last)throw new Error('Overlapping or invalid text replacements detected; the file was not modified.');out=out.slice(0,e.start)+e.encode(e.translation)+out.slice(e.end);last=e.start}return out}
+function astShape(node){if(node===null||typeof node!=='object')return node;if(Array.isArray(node))return node.map(astShape);if(node.type==='TemplateElement')return {type:'TemplateElement',tail:node.tail};if(node.type==='Literal'&&typeof node.value==='string')return {type:'Literal',literalType:'string'};if(node.type==='Literal'&&node.regex){return {type:'Literal',regex:{pattern:normalizeFilterPattern(node.regex.pattern),flags:node.regex.flags}}}const out={};for(const k of Object.keys(node).sort()){if(['start','end','loc','range','raw'].includes(k))continue;out[k]=astShape(node[k])}return out}
+function normalizeFilterPattern(p){return String(p).replace('Almacén agregado a GreenPrint|Storage added to GreenPrint','Almacén agregado a GreenPrint').replace('(?:te falta|Missing|Bloque faltante:|Missing block:)','(?:te falta|Bloque faltante:)').replace('subestructura|substructure','subestructura').replace('Espacio ocupado|Occupied space','Espacio ocupado')}
+function parseModule(source){return acorn.parse(source,{ecmaVersion:'latest',sourceType:'module',allowHashBang:true,allowAwaitOutsideFunction:true})}
+function assertJSSafe(original,updated,path){let a,b;try{a=parseModule(original);b=parseModule(updated)}catch(e){throw new Error('JavaScript syntax validation failed in '+path+': '+e.message)}if(JSON.stringify(astShape(a))!==JSON.stringify(astShape(b)))throw new Error('JavaScript code structure changed unexpectedly in '+path+'. The export has been stopped.')}
+function findMessageFilter(source){const ast=parseModule(source);let found=null;walk(ast,null,null,(node,parent)=>{if(node.type!=='FunctionDeclaration'||node.id?.name!=='message'||found)return;walk(node.body,node,null,n=>{if(n.type==='Literal'&&n.regex&&(/Almacén agregado a GreenPrint|Bloque faltante:/.test(n.regex.pattern)))found=n})});return found}
+function patchMessageFilter(source){const node=findMessageFilter(source);if(!node)return {source,status:'not-found'};let pattern=node.regex.pattern;if(pattern.includes('Storage added to GreenPrint')&&pattern.includes('Missing block:')&&pattern.includes('substructure')&&pattern.includes('Occupied space'))return {source,status:'already-bilingual'};
+ const required=[['Almacén agregado a GreenPrint','Almacén agregado a GreenPrint|Storage added to GreenPrint'],['(?:te falta|Bloque faltante:)','(?:te falta|Missing|Bloque faltante:|Missing block:)'],['subestructura','subestructura|substructure'],['Espacio ocupado','Espacio ocupado|Occupied space']];let updated=pattern;for(const [from,to] of required){if(updated.includes(from)&&!updated.includes(to))updated=updated.replace(from,to)}
+ if(updated===pattern)return {source,status:'unmodified'};const raw='/'+updated.replace(/\//g,'\\/')+'/'+node.regex.flags;const out=source.slice(0,node.start)+raw+source.slice(node.end);assertJSSafe(source,out,'scripts/main.js');return {source:out,status:'patched'};
+}
+async function translateTextFile(source,path,apiKey,model,review){const jobs=collectCandidates(source,path);if(!jobs.length)return {source,jobs:0,edits:0};stats.files++;stats.found+=jobs.length;const edits=[],newJobs=[];
+ for(const job of jobs){const known=getMemory(job);if(known!==undefined){stats.cached++;if(known!==job.text){edits.push({...job,translation:known});stats.appliedCached++}}else newJobs.push(job)}updateStats();
+ const chunkSize=24;for(let i=0;i<newJobs.length;i+=chunkSize){const chunk=newJobs.slice(i,i+chunkSize);stats.api+=chunk.length;updateStats();setStatus('Translating '+path+' · '+Math.min(i+chunk.length,newJobs.length)+' / '+newJobs.length+' new strings');const results=await callGemini(chunk,apiKey,model);
+  for(const r of results){const original=r.item.text,final=r.status==='translate'?r.translation:original;if(final!==original){memory[memoryKey(r.item)]=final;stats.translated++;edits.push({...r.item,translation:final});review.push({source:original,target:final,path})}else stats.unchanged++}saveMemory();if(i+chunk.length<newJobs.length)await new Promise(r=>setTimeout(r,900));setProgress(7+Math.min(78,78*(i+chunk.length)/Math.max(1,newJobs.length)))}
+ const updated=applyEdits(source,edits);const ext=path.split('.').pop().toLowerCase();if(ext==='js')assertJSSafe(source,updated,path);else if(ext==='json'){JSON.parse(updated);if(JSON.stringify(jsonShape(JSON.parse(source)))!==JSON.stringify(jsonShape(JSON.parse(updated))))throw new Error('JSON structure changed unexpectedly in '+path)}
+ return {source:updated,jobs:jobs.length,edits:edits.length};
+}
+function jsonShape(v){if(Array.isArray(v))return ['array',v.map(jsonShape)];if(v&&typeof v==='object')return ['object',Object.keys(v).sort().map(k=>[k,jsonShape(v[k])])];if(typeof v==='string')return 'string';return [typeof v,v]}
+function isZipBytes(bytes){return bytes&&bytes.length>4&&bytes[0]===0x50&&bytes[1]===0x4b}
+async function processZip(zip,prefix,apiKey,model,review,depth=0){if(depth>5)throw new Error('Archive nesting is deeper than expected.');const entries=Object.values(zip.files);for(let index=0;index<entries.length;index++){const file=entries[index];if(file.dir)continue;const path=prefix+file.name,ext=path.split('.').pop().toLowerCase();
+ if(['mcpack','mcaddon','zip'].includes(ext)){const bytes=await file.async('uint8array');if(isZipBytes(bytes)){const nested=await JSZip.loadAsync(bytes);await processZip(nested,path+'/',apiKey,model,review,depth+1);const blob=await nested.generateAsync({type:'uint8array',compression:'DEFLATE',compressionOptions:{level:6}});zip.file(file.name,blob,{date:file.date})}continue}
+ if(!['js','json','lang'].includes(ext))continue;if(ext==='js'&&skippedProjectFiles.test(path))continue;if(ext==='json'&&!shouldScanJson(path))continue;if(ext==='lang'&&!/\/en_US\.lang$/i.test('/'+path))continue;
+ try{const source=await file.async('string');const result=await translateTextFile(source,path,apiKey,model,review);let updated=result.source;if(/(?:^|\/)scripts\/main\.js$/i.test(path)){const patch=patchMessageFilter(updated);updated=patch.source;if(patch.status==='patched'){stats.filterPatched=true;changedPaths.add(path)}else if(patch.status==='not-found')validationMessages.push('Message filter not recognized in '+path+'; verify filtered chat notifications in-game.')}
+  if(updated!==source){zip.file(file.name,updated,{date:file.date});changedPaths.add(path)}
+ }catch(e){stats.errors.push(path+': '+e.message);throw new Error('Could not safely process '+path+'. '+e.message)}
+ }}
+function compareVersion(a,b){for(let i=0;i<3;i++){const x=Number(a?.[i]||0),y=Number(b?.[i]||0);if(x!==y)return x-y}return 0}
+function nextPatch(v){const n=[Number(v?.[0]||1),Number(v?.[1]||0),Number(v?.[2]||0)];n[2]++;if(n[2]>65535){n[1]++;n[2]=0}return n}
+function objectProperty(node,name){return node&&node.type==='ObjectExpression'?node.properties.find(p=>p.type==='Property'&&!p.computed&&((p.key.type==='Identifier'&&p.key.name===name)||(p.key.type==='Literal'&&p.key.value===name)))?.value:null}
+function patchManifestVersionText(source,next,internalRpUuid,isBehaviorPack){
+ const ast=acorn.parse('('+source+')',{ecmaVersion:'latest'});const root=ast.body[0]?.expression;if(!root||root.type!=='ObjectExpression')throw new Error('GreenPrint manifest is not a JSON object.');const header=objectProperty(root,'header');const edits=[];
+ const addVersion=(arr,label)=>{if(!arr||arr.type!=='ArrayExpression'||arr.elements.length!==3)throw new Error('Unexpected version field in '+label+'.');arr.elements.forEach((n,i)=>{if(!n||n.type!=='Literal'||!Number.isInteger(n.value))throw new Error('Non-integer version component in '+label+'.');edits.push({start:n.start-1,end:n.end-1,translation:String(next[i]),encode:x=>x})})};
+ addVersion(objectProperty(header,'version'),'header.version');const modules=objectProperty(root,'modules');if(!modules||modules.type!=='ArrayExpression')throw new Error('Manifest modules array missing.');for(const mod of modules.elements)addVersion(objectProperty(mod,'version'),'module.version');
+ if(isBehaviorPack){const deps=objectProperty(root,'dependencies');if(deps&&deps.type==='ArrayExpression'){for(const dep of deps.elements){const uuid=objectProperty(dep,'uuid'),version=objectProperty(dep,'version');if(uuid?.type==='Literal'&&uuid.value===internalRpUuid&&version)addVersion(version,'Behavior Pack Resource Pack dependency')}}}
+ return applyEdits(source,edits);
+}
+async function bumpGreenPrintManifests(zip){const files=Object.keys(zip.files).filter(p=>/(?:^|\/)GreenPrint_(?:BP|RP)\/manifest\.json$/i.test(p));const bpPath=files.find(p=>/GreenPrint_BP\/manifest\.json$/i.test(p)),rpPath=files.find(p=>/GreenPrint_RP\/manifest\.json$/i.test(p));if(!bpPath||!rpPath)return;
+ const bpFile=zip.file(bpPath),rpFile=zip.file(rpPath);const bpText=await bpFile.async('string'),rpText=await rpFile.async('string');const bp=JSON.parse(bpText),rp=JSON.parse(rpText);const max=compareVersion(bp.header.version,rp.header.version)>=0?bp.header.version:rp.header.version;let next=nextPatch(max);const rpUuid=rp.header.uuid;const historyKey=bp.header.uuid+'|'+rp.header.uuid;const last=versionHistory[historyKey];if(Array.isArray(last)&&compareVersion(next,last)<=0)next=nextPatch(last);
+ // Edit only numeric version components in-place. Whitespace, key order, line endings and final-newline policy stay identical to the source manifests.
+ const nextBp=patchManifestVersionText(bpText,next,rpUuid,true),nextRp=patchManifestVersionText(rpText,next,rpUuid,false);JSON.parse(nextBp);JSON.parse(nextRp);zip.file(bpPath,nextBp,{date:bpFile.date});zip.file(rpPath,nextRp,{date:rpFile.date});changedPaths.add(bpPath);changedPaths.add(rpPath);
+ outputVersion=next.join('.');pendingVersionRecord={key:historyKey,version:next.slice()};stats.versionBumped=true;
+}
+async function collectArchiveBytes(zip,prefix=''){const map=new Map();for(const f of Object.values(zip.files)){if(f.dir)continue;const full=prefix+f.name;const bytes=await f.async('uint8array');const ext=full.split('.').pop().toLowerCase();if(['zip','mcaddon','mcpack'].includes(ext)&&isZipBytes(bytes)){const inner=await JSZip.loadAsync(bytes);const sub=await collectArchiveBytes(inner,full+'/');for(const [k,v] of sub)map.set(k,v)}else map.set(full,bytes)}return map}
+function bytesEqual(a,b){if(a.length!==b.length)return false;for(let i=0;i<a.length;i++)if(a[i]!==b[i])return false;return true}
+function manifestIds(m){return {header:m.header?.uuid,modules:(m.modules||[]).map(x=>x.uuid),dependencies:(m.dependencies||[]).map(x=>x.uuid)}}
+function normalizedManifest(m,internalUuids,normalizeInternalDependency){const c=JSON.parse(JSON.stringify(m));if(c.header){c.header.name='__TEXT__';c.header.description='__TEXT__';c.header.version='__PACK_VERSION__'}for(const mod of (c.modules||[]))if(Array.isArray(mod.version))mod.version='__PACK_VERSION__';if(normalizeInternalDependency)for(const dep of (c.dependencies||[]))if(internalUuids.has(dep.uuid)&&Array.isArray(dep.version))dep.version='__PACK_VERSION__';return c}
+async function validateOutput(originalZip,outputZip){const before=await collectArchiveBytes(originalZip),after=await collectArchiveBytes(outputZip);const bkeys=[...before.keys()].sort(),akeys=[...after.keys()].sort();if(JSON.stringify(bkeys)!==JSON.stringify(akeys))throw new Error('Archive verification failed: file list changed.');
+ for(const [path,oldBytes] of before){const newBytes=after.get(path);if(!changedPaths.has(path)){if(!bytesEqual(oldBytes,newBytes))throw new Error('An untouched file was modified: '+path);continue}const ext=path.split('.').pop().toLowerCase(),oldText=new TextDecoder().decode(oldBytes),newText=new TextDecoder().decode(newBytes);
+  if(ext==='js'){assertJSSafe(oldText,newText,path)}else if(ext==='json'){let a,b;try{a=JSON.parse(oldText);b=JSON.parse(newText)}catch(e){throw new Error('JSON validation failed in '+path+': '+e.message)}if(/manifest\.json$/i.test(path)){if(JSON.stringify(manifestIds(a))!==JSON.stringify(manifestIds(b)))throw new Error('Manifest UUIDs or dependency references changed in '+path)}else if(JSON.stringify(jsonShape(a))!==JSON.stringify(jsonShape(b)))throw new Error('JSON structure changed in '+path)}else if(ext==='lang'){const keys=s=>s.split(/\r?\n/).filter(l=>l&&!/^\s*[#!]/.test(l)&&l.includes('=')).map(l=>l.slice(0,l.indexOf('=')).trim());if(JSON.stringify(keys(oldText))!==JSON.stringify(keys(newText)))throw new Error('Language keys changed in '+path)}else throw new Error('An unsupported file type was modified: '+path)
+ }
+ // Parse every JavaScript file, including the project-data modules that are intentionally not translated.
+ for(const [path,bytes] of after){if(path.toLowerCase().endsWith('.js'))parseModule(new TextDecoder().decode(bytes))}
+ const manifests=[...after.entries()].filter(([p])=>p.endsWith('/GreenPrint_BP/manifest.json')||p.endsWith('/GreenPrint_RP/manifest.json'));if(manifests.length>=2){const parsed=manifests.map(([p,b])=>[p,JSON.parse(new TextDecoder().decode(b))]);const versions=parsed.map(x=>x[1].header.version.join('.'));if(new Set(versions).size!==1)throw new Error('Behavior Pack and Resource Pack versions are inconsistent.');const internalUuids=new Set(parsed.map(x=>x[1].header.uuid));for(const [p,m] of parsed){const originalBytes=before.get(p);if(originalBytes){const old=JSON.parse(new TextDecoder().decode(originalBytes));const normalizeInternalDependency=/GreenPrint_BP\/manifest\.json$/i.test(p);if(JSON.stringify(normalizedManifest(old,internalUuids,normalizeInternalDependency))!==JSON.stringify(normalizedManifest(m,internalUuids,normalizeInternalDependency)))throw new Error('Manifest metadata, UUIDs or non-version settings changed unexpectedly in '+p)}}}
+ return {entries:after.size,protectedFiles: [...after.keys()].filter(p=>/\.mcstructure$/i.test(p)||skippedProjectFiles.test(p)).length,changed:[...changedPaths]};
+}
+function renderReview(rows){const area=$('reviewList');area.innerHTML='';for(const r of rows.slice(0,160)){const div=document.createElement('div');div.className='reviewrow';const a=document.createElement('div'),b=document.createElement('div');a.className='src';b.className='dst';const as=document.createElement('small'),bs=document.createElement('small');as.textContent='SOURCE · '+r.path.split('/').pop();bs.textContent='ENGLISH';const at=document.createElement('div'),bt=document.createElement('div');at.textContent=r.source;bt.textContent=r.target;a.append(as,at);b.append(bs,bt);div.append(a,b);area.append(div)}$('reviewDetails').classList.toggle('hidden',rows.length===0)}
+function renderValidation(items){const list=$('validationList');list.innerHTML='';for(const item of items){const li=document.createElement('li');li.textContent=item;list.append(li)}$('validationDetails').classList.toggle('hidden',items.length===0)}
+function resetRun(){for(const k of Object.keys(stats)){if(Array.isArray(stats[k]))stats[k]=[];else if(typeof stats[k]==='boolean')stats[k]=false;else stats[k]=0}changedPaths.clear();validationMessages.length=0;outputVersion=null;pendingVersionRecord=null;updateStats();setProgress(0)}
+function selfTest(){
+ const sample='function demo(name){ return `Bloque incorrecto en ${name}; se esperaba minecraft:crafter`; }';const jobs=parseJS(sample,'main.js');if(jobs.length!==2)throw new Error('Template-literal regression test failed: expected two editable text segments.');const edits=jobs.map(j=>({...j,translation:j.text==='Bloque incorrecto en '?'Incorrect block at ':'; expected minecraft:crafter'}));const changed=applyEdits(sample,edits);assertJSSafe(sample,changed,'template-literal self-test');if(!changed.includes('`Incorrect block at ${name}; expected minecraft:crafter`'))throw new Error('Template-literal regression test changed an interpolation or delimiter.');
+ const previouslyBroken='const label = result.text ?? `${result.missing} slots not restored`;';const brokenJobs=parseJS(previouslyBroken,'main.js');if(brokenJobs.length!==1)throw new Error('Nested-template regression fixture was not parsed.');const repaired=applyEdits(previouslyBroken,[{...brokenJobs[0],translation:' slots missing'}]);assertJSSafe(previouslyBroken,repaired,'nested-template regression test');if((repaired.match(/`/g)||[]).length!==2||!repaired.includes('${result.missing}'))throw new Error('Nested-template edit changed a backtick or interpolation expression.');
+ const printable='Texto con `backticks`, \\ barras, ${literal}, %1 y §a';const escaped=escapeTemplate(printable);const roundTrip=parseModule('const value=`'+escaped+'`;');let cooked=null;walk(roundTrip,null,null,n=>{if(n.type==='TemplateElement')cooked=n.value.cooked});if(cooked!==printable)throw new Error('Escaped template text did not round-trip exactly.');
+ const tokens='§aPlayer %1 ${player.name} minecraft:crafter\\n';const protectedValue=protectTokens(tokens);if(restoreTokens(protectedValue.masked,protectedValue.tokens)!==tokens)throw new Error('Protected formatting, placeholder or identifier tokens did not round-trip.');
+ const filterSample='function message(clean){ if (!/Almacén agregado a GreenPrint|(?:te falta|Bloque faltante:)|subestructura|Espacio ocupado/i.test(clean)) return; }';const patched=patchMessageFilter(filterSample);if(patched.status!=='patched'||!patched.source.includes('Storage added to GreenPrint')||!patched.source.includes('Missing block:'))throw new Error('English notification filter regression test failed.');if(patchMessageFilter(patched.source).status!=='already-bilingual')throw new Error('English notification filter patch is not idempotent.');
+ const projectJobs=collectCandidates('export const PROJECTS = [{ id: "adi_projects:gold", name: "Casa roja" }];','GreenPrint_BP/scripts/projects.js');if(projectJobs.length!==1||projectJobs[0].text!=='Casa roja')throw new Error('Spanish project display-name detection regression test failed.');
+ if(isTextCandidate('minecraft:')||isTextCandidate('adi_projects:gold'))throw new Error('Minecraft identifier-prefix protection regression test failed.');const interactJobs=parseJSONJobs('{\"minecraft:entity\":{\"components\":{\"minecraft:interact\":{\"interactions\":[{\"interact_text\":\"Colocar vagoneta\"}]}}}}','GreenPrint_BP/entities/test.json');if(interactJobs.length!==1||interactJobs[0].text!=='Colocar vagoneta')throw new Error('Entity interaction label detection regression test failed.');
+ const manifestSample='{\r\n  \"header\": { \"version\": [1, 8, 7] },\r\n  \"modules\": [{ \"version\": [1, 8, 7] }]\r\n}';const manifestNext=patchManifestVersionText(manifestSample,[1,8,8],null,false);if(!manifestNext.includes('\r\n')||manifestNext.endsWith('\r\n')!==manifestSample.endsWith('\r\n'))throw new Error('Manifest version patch changed line endings or final-newline policy.');if(!manifestNext.includes('[1, 8, 8]'))throw new Error('Manifest version patch failed.');
+ const unsafe='const x=`a\\\\${value}`';parseModule(unsafe);return true
+}
+$('addonFile').addEventListener('change',e=>{selectedFile=e.target.files?.[0]||null;$('fileName').textContent=selectedFile?selectedFile.name+' · '+(selectedFile.size/1024/1024).toFixed(2)+' MB':'No file selected';$('startBtn').disabled=!selectedFile});
+$('startBtn').addEventListener('click',async()=>{
+ if(!selectedFile)return;const apiKey=$('apiKey').value.trim();if(!window.JSZip||!window.acorn){alert('Required ZIP/parser libraries did not load. Check internet access and refresh.');return}
+ resetRun();$('progressCard').classList.remove('hidden');$('downloadArea').classList.add('hidden');$('reviewList').innerHTML='';$('reviewDetails').classList.add('hidden');$('validationDetails').classList.add('hidden');$('startBtn').disabled=true;
+ try{await seedPromise;if(!seedReady||Object.keys(seedMemory).length<400)throw new Error('The bundled GreenPrint translation memory did not load. Refresh the website or re-upload all website files.');selfTest();setStatus('Reading original archive…');const bytes=await selectedFile.arrayBuffer();const originalZip=await JSZip.loadAsync(bytes);const workingZip=await JSZip.loadAsync(bytes);const review=[];
+  await processZip(workingZip,'',apiKey,$('model').value,review,0);if(changedPaths.size)await bumpGreenPrintManifests(workingZip);
+  setStatus('Rebuilding archive…');setProgress(90);const outBytes=await workingZip.generateAsync({type:'uint8array',compression:'DEFLATE',compressionOptions:{level:6}});const rebuiltZip=await JSZip.loadAsync(outBytes);
+  setStatus('Checking archive, scripts, manifests and protected project files…');const report=await validateOutput(originalZip,rebuiltZip);outputBlob=new Blob([outBytes],{type:'application/zip'});const base=selectedFile.name.replace(/\.mcaddon\.zip$/i,'').replace(/\.(?:zip|mcpack|mcaddon)$/i,'');outputName=(base||'GreenPrint')+'_English.mcaddon';
+  const lines=[report.entries+' archive files preserved',report.protectedFiles+' protected project/structure files preserved byte-for-byte','All JavaScript files parsed successfully','JavaScript syntax and AST structure checks passed','JSON and language-file structure checks passed','Behavior Pack and Resource Pack UUIDs preserved',stats.versionBumped?'Both pack versions updated to '+outputVersion:'No pack version bump was necessary'];if(stats.filterPatched)lines.push('English equivalents added to GreenPrint notification filter');else if(validationMessages.length)lines.push(...validationMessages);renderValidation(lines);renderReview(review);setProgress(100);$('downloadArea').classList.remove('hidden');$('resultNote').className='note good';$('resultNote').textContent='All automated checks passed. This validates archive integrity and code structure; it does not replace an in-game test.';setStatus('Verified. '+stats.appliedCached+' saved translations reused; '+stats.translated+' new translations added; '+stats.api+' strings sent to Gemini.');
+ }catch(e){outputBlob=null;$('resultNote').className='note danger';$('resultNote').textContent='No download was produced because validation or translation failed. '+e.message;setStatus('Stopped: '+e.message);console.error(e)}finally{$('startBtn').disabled=!selectedFile;updateStats()}
+});
+$('downloadBtn').addEventListener('click',()=>{if(!outputBlob)return;const url=URL.createObjectURL(outputBlob);const a=document.createElement('a');a.href=url;a.download=outputName;document.body.appendChild(a);a.click();a.remove();if(pendingVersionRecord){versionHistory[pendingVersionRecord.key]=pendingVersionRecord.version;saveVersionHistory();pendingVersionRecord=null}setTimeout(()=>URL.revokeObjectURL(url),30000)});
+$('exportMemory').addEventListener('click',()=>{const blob=new Blob([JSON.stringify({app:'GreenPrint Translator',version:3,created:new Date().toISOString(),memory:{...seedMemory,...memory},versions:versionHistory},null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='GreenPrint_Translation_Memory.json';a.click();URL.revokeObjectURL(url)});
+$('importMemory').addEventListener('click',()=>$('memoryFile').click());
+$('memoryFile').addEventListener('change',async e=>{const f=e.target.files?.[0];if(!f)return;try{const d=JSON.parse(await f.text()),src=d.memory||d;if(!src||typeof src!=='object'||Array.isArray(src))throw new Error('Invalid memory file');Object.assign(memory,src);saveMemory();if(d.versions&&typeof d.versions==='object'){for(const [k,v] of Object.entries(d.versions)){if(Array.isArray(v)&&(!Array.isArray(versionHistory[k])||compareVersion(v,versionHistory[k])>0))versionHistory[k]=v}}saveVersionHistory();alert('Translation memory and version history imported. '+memoryCount()+' translation entries are available.')}catch(err){alert('Could not import memory: '+err.message)}e.target.value=''});
+$('clearMemory').addEventListener('click',()=>{if(confirm('Clear only translations saved on this device? Built-in GreenPrint translations will remain available.')){for(const k of Object.keys(memory))delete memory[k];saveMemory()}});
+function updateModelDefault(){const opts=[...$('model').options];if(opts.some(o=>o.value==='gemini-3.8-flash'))$('model').value='gemini-3.8-flash'}
+updateModelDefault();updateStats();
+// Internal regression tests run before every translation; no debug API is exposed in the hosted page.
+})();
+</script>
+</body>
+</html>
